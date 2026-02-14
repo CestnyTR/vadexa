@@ -6,12 +6,6 @@ return [
     |--------------------------------------------------------------------------
     | Third Party Services
     |--------------------------------------------------------------------------
-    |
-    | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
-    |
     */
 
     'postmark' => [
@@ -33,6 +27,21 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+    ],
+
+    'netgsm' => [
+        'mock' => env('NETGSM_MOCK', true),
+        'url' => env('NETGSM_API_URL', 'https://api.netgsm.com.tr/sms/send/get/'),
+        'user_code' => env('NETGSM_USER_CODE'),
+        'password' => env('NETGSM_PASSWORD'),
+        'header' => env('NETGSM_HEADER'),
+    ],
+
+    'notifications' => [
+        'enable_sms' => env('NOTIFICATIONS_ENABLE_SMS', true),
+        'enable_mail' => env('NOTIFICATIONS_ENABLE_MAIL', true),
+        'mock_mail' => env('NOTIFICATIONS_MOCK_MAIL', true),
+        'schedule_time' => env('NOTIFICATIONS_SCHEDULE_TIME', '10:00'),
     ],
 
 ];
