@@ -4,36 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Models\Customer;
 use App\Models\Task;
+use App\Services\CustomerService;
+use App\Services\TaskService;
 
 class TaskController extends Controller
 {
+    public function __construct(
+        private TaskService $taskService,
+        private CustomerService $customerService,
+    ) {}
+
     public function index()
     {
-        $tasks = Task::query()
-            ->with('customer')
-            ->when(request('status'), fn ($query, $status) => $query->where('status', $status))
-            ->when(request('due_date_from'), fn ($query, $date) => $query->whereDate('due_date', '>=', $date))
-            ->when(request('due_date_to'), fn ($query, $date) => $query->whereDate('due_date', '<=', $date))
-            ->when(request('q'), fn ($query, $q) => $query->where('title', 'like', "%{$q}%"))
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
+        $tasks = $this->taskService->getPaginated(
+            request()->only(['status', 'due_date_from', 'due_date_to', 'q'])
+        );
 
         return view('tasks.index', compact('tasks'));
     }
 
     public function create()
     {
-        $customers = Customer::query()->orderBy('name')->get(['id', 'name']);
+        $customers = $this->customerService->getDropdownList();
 
         return view('tasks.create', compact('customers'));
     }
 
     public function store(StoreTaskRequest $request)
     {
-        Task::create($request->validated());
+        $this->taskService->create($request->validated());
 
         return redirect()->route('tasks.index')
             ->with('success', 'Gorev basariyla olusturuldu.');
@@ -41,14 +41,14 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
-        $customers = Customer::query()->orderBy('name')->get(['id', 'name']);
+        $customers = $this->customerService->getDropdownList();
 
         return view('tasks.edit', compact('task', 'customers'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        $task->update($request->validated());
+        $this->taskService->update($task, $request->validated());
 
         return redirect()->route('tasks.index')
             ->with('success', 'Gorev basariyla guncellendi.');
@@ -56,7 +56,7 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
-        $task->delete();
+        $this->taskService->delete($task);
 
         return redirect()->route('tasks.index')
             ->with('success', 'Gorev basariyla silindi.');

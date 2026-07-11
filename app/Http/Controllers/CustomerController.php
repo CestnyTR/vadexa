@@ -5,21 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use App\Services\CustomerService;
 
 class CustomerController extends Controller
 {
+    public function __construct(
+        private CustomerService $customerService,
+    ) {}
+
     public function index()
     {
-        $customers = Customer::query()
-            ->when(request('q'), function ($query, $q) {
-                $query->where(function ($query) use ($q) {
-                    $query->where('name', 'like', "%{$q}%")
-                          ->orWhere('phone', 'like', "%{$q}%");
-                });
-            })
-            ->latest()
-            ->paginate(15)
-            ->withQueryString();
+        $customers = $this->customerService->getPaginated(request('q'));
 
         return view('customers.index', compact('customers'));
     }
@@ -31,7 +27,7 @@ class CustomerController extends Controller
 
     public function store(StoreCustomerRequest $request)
     {
-        Customer::create($request->validated());
+        $this->customerService->create($request->validated());
 
         return redirect()->route('customers.index')
             ->with('success', 'Musteri basariyla olusturuldu.');
@@ -44,7 +40,7 @@ class CustomerController extends Controller
 
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->validated());
+        $this->customerService->update($customer, $request->validated());
 
         return redirect()->route('customers.index')
             ->with('success', 'Musteri basariyla guncellendi.');
@@ -52,7 +48,7 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer)
     {
-        $customer->delete();
+        $this->customerService->delete($customer);
 
         return redirect()->route('customers.index')
             ->with('success', 'Musteri basariyla silindi.');
