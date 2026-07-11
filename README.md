@@ -1,59 +1,92 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Vadexa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Vadexa, KOBİ'ler için çok kiracılı (multi-tenant) bir **alacak takip ve tahsilat hatırlatma** uygulamasıdır. Müşterileri, vadeli ve taksitli alacakları ve görevleri tek bir yerden yönetmeni; vadesi gelen alacaklar için müşterilere otomatik olarak **SMS (NetGSM)** ve **e‑posta** hatırlatmaları göndermeni sağlar.
 
-## About Laravel
+Laravel 12 + Blade (Breeze) üzerine kuruludur.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Özellikler
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Müşteri yönetimi** — telefon ve e‑posta bilgileriyle müşteri kayıtları.
+- **Alacak takibi** — vade tarihi, tutar, durum (ödendi/bekliyor); tekrar eden ve taksitli alacak desteği (`recurrence_type`, `installment_count`, `parent_id`).
+- **Görevler** — müşteri/alacaklarla ilişkili yapılacaklar.
+- **Command Center** — müşteri, alacak ve görev oluşturma, alacağı ödendi işaretleme ve tek tıkla bildirim gönderme için hızlı işlem paneli.
+- **Otomatik bildirimler** — vadesi gelen alacaklar için SMS ve e‑posta hatırlatmaları; tenant bazında açık/kapalı ayarı ve gönderim saati.
+- **Loglama** — gönderilen tüm SMS ve e‑postalar için kayıt (`sms_logs`, `mail_logs`).
+- **Dashboard** — özet metrikler ve genel durum.
+- **Çok kiracılılık** — her tenant kendi müşteri, alacak, görev ve loglarına sahiptir (`BelongsToTenant`).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Mimari
 
-## Learning Laravel
+Uygulama katmanlı bir yapı kullanır:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- **Controllers** — yalnızca HTTP giriş/çıkışı; iş mantığını servislere devreder.
+- **Services** (`app/Services`) — iş kuralları: `CustomerService`, `ReceivableService`, `TaskService`, `DashboardService`, `NotificationService`, `TenantService`.
+- **Repositories** (`app/Repositories/Eloquent`) — veri erişimi, `app/Contracts/Repositories` altındaki interface'ler arkasında soyutlanmıştır ve `RepositoryServiceProvider` ile bind edilir.
+- **Jobs** — bildirim gönderimi kuyruğa alınarak yapılır (`SendSmsJob`, `SendDueMailJob`).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Gereksinimler
 
-## Laravel Sponsors
+- PHP 8.2+
+- Composer
+- Node.js & npm
+- SQLite (varsayılan) veya MySQL/PostgreSQL
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Kurulum
 
-### Premium Partners
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite   # SQLite kullanıyorsan
+php artisan migrate
+npm install
+npm run build
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+> Kısayol: `composer setup` yukarıdaki adımların çoğunu tek komutta çalıştırır.
 
-## Contributing
+## Geliştirme
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Sunucu, kuyruk, log takibi ve Vite'ı aynı anda başlatmak için:
 
-## Code of Conduct
+```bash
+composer dev
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Bu komut şunları paralel çalıştırır: `php artisan serve`, `php artisan queue:listen`, `php artisan pail` ve `npm run dev`.
 
-## Security Vulnerabilities
+## Bildirimler
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Vadesi gelen alacaklar için hatırlatmaları göndermek üzere:
 
-## License
+```bash
+php artisan app:send-due-notifications
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Command Center üzerinden `command-center.run-notifications` endpoint'i ile de tetiklenebilir. Bildirim gönderimi kuyruk üzerinden yapıldığından bir queue worker'ın çalışıyor olması gerekir.
+
+### NetGSM (SMS) ayarları
+
+`.env` içindeki ilgili değişkenler:
+
+```env
+NETGSM_MOCK=true          # true iken gerçek SMS gönderilmez, loglanır
+NETGSM_API_URL=https://api.netgsm.com.tr/sms/send/get/
+NETGSM_USER_CODE=
+NETGSM_PASSWORD=
+NETGSM_HEADER=
+```
+
+Geliştirme sırasında `NETGSM_MOCK=true` bırakılması önerilir.
+
+## Test
+
+```bash
+composer test
+# veya
+php artisan test
+```
+
+## Lisans
+
+MIT
