@@ -1,6 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Mail Log</h2>
+        <div>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Gönderilen E-postalar</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Müşterilerinize gönderilen tüm e-postaların kaydı burada görünür.</p>
+        </div>
     </x-slot>
 
     <div class="py-8">
@@ -12,13 +15,13 @@
                         <x-text-input name="q" value="{{ request('q') }}" placeholder="E-posta ile ara..." class="flex-1 min-w-[200px]" />
                         <select name="status" class="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm text-sm">
                             <option value="">Tüm Durumlar</option>
-                            @foreach(['success' => 'Basarili', 'failed' => 'Basarisiz'] as $key => $label)
+                            @foreach(['success' => 'Başarılı', 'failed' => 'Başarısız'] as $key => $label)
                                 <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
                         <select name="type" class="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm text-sm">
-                            <option value="">Tüm Tipler</option>
-                            @foreach(['upcoming' => 'Yaklaşan', 'due_today' => 'Bugün', 'overdue' => 'Geçmiş'] as $key => $label)
+                            <option value="">Tüm Türler</option>
+                            @foreach(['upcoming' => 'Yaklaşan', 'due_today' => 'Bugün', 'overdue' => 'Gecikmiş'] as $key => $label)
                                 <option value="{{ $key }}" {{ request('type') === $key ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
@@ -41,7 +44,7 @@
                                 <th class="px-6 py-3">Tarih</th>
                                 <th class="px-6 py-3">E-posta</th>
                                 <th class="px-6 py-3">Müşteri</th>
-                                <th class="px-6 py-3">Tip</th>
+                                <th class="px-6 py-3">Tür</th>
                                 <th class="px-6 py-3">Durum</th>
                                 <th class="px-6 py-3">Konu</th>
                                 <th class="px-6 py-3">Hata</th>
@@ -54,34 +57,17 @@
                                     <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ $log->email }}</td>
                                     <td class="px-6 py-4 text-gray-700 dark:text-gray-300">{{ $log->customer->name ?? '-' }}</td>
                                     <td class="px-6 py-4">
-                                        @php
-                                            $typeColors = [
-                                                'upcoming' => 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
-                                                'due_today' => 'bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300',
-                                                'overdue' => 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300',
-                                            ];
-                                        @endphp
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $typeColors[$log->type] ?? 'bg-gray-100 text-gray-800' }}">
-                                            {{ $log->type }}
-                                        </span>
+                                        <x-status-badge :status="$log->type" />
                                     </td>
                                     <td class="px-6 py-4">
-                                        @php
-                                            $statusColors = [
-                                                'success' => 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-300',
-                                                'failed' => 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300',
-                                            ];
-                                        @endphp
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $statusColors[$log->status] ?? 'bg-gray-100 text-gray-800' }}">
-                                            {{ $log->status }}
-                                        </span>
+                                        <x-status-badge :status="$log->status" />
                                     </td>
                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate">{{ $log->subject }}</td>
                                     <td class="px-6 py-4 text-red-500 dark:text-red-400 max-w-xs truncate">{{ $log->error ?? '-' }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Mail log bulunamadı.</td>
+                                    <td colspan="7" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Henüz e-posta gönderilmemiş.</td>
                                 </tr>
                             @endforelse
                         </tbody>

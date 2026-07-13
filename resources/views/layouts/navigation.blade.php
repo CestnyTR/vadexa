@@ -13,27 +13,27 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        Komuta Merkezi
+                        Genel Bakış
                     </x-nav-link>
                     <x-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*')">
-                        SMS Log
+                        Gönderilen SMS'ler
                     </x-nav-link>
                     <x-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
-                        Mail Log
+                        Gönderilen E-postalar
                     </x-nav-link>
                     @if (Auth::user()->isOwner())
                         <x-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">
                             Ekip
                         </x-nav-link>
                         <x-nav-link :href="route('templates.index')" :active="request()->routeIs('templates.*')">
-                            Şablonlar
+                            Mesaj Şablonları
                         </x-nav-link>
                     @endif
                     <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                         Raporlar
                     </x-nav-link>
                     <x-nav-link :href="route('plan.index')" :active="request()->routeIs('plan.*')">
-                        Plan
+                        Plan & Ödeme
                     </x-nav-link>
                 </div>
             </div>
@@ -99,27 +99,27 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                Komuta Merkezi
+                Genel Bakış
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*')">
-                SMS Log
+                Gönderilen SMS'ler
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
-                Mail Log
+                Gönderilen E-postalar
             </x-responsive-nav-link>
             @if (Auth::user()->isOwner())
                 <x-responsive-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">
                     Ekip
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('templates.index')" :active="request()->routeIs('templates.*')">
-                    Şablonlar
+                    Mesaj Şablonları
                 </x-responsive-nav-link>
             @endif
             <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
                 Raporlar
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('plan.index')" :active="request()->routeIs('plan.*')">
-                Plan
+                Plan & Ödeme
             </x-responsive-nav-link>
         </div>
 
