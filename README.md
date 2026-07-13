@@ -1,91 +1,135 @@
 # Vadexa
 
-Vadexa, KOBİ'ler için çok kiracılı (multi-tenant) bir **alacak takip ve tahsilat hatırlatma** uygulamasıdır. Müşterileri, vadeli ve taksitli alacakları ve görevleri tek bir yerden yönetmeni; vadesi gelen alacaklar için müşterilere otomatik olarak **SMS (NetGSM)** ve **e‑posta** hatırlatmaları göndermeni sağlar.
+**Çok kiracılı (multi-tenant) alacak takip & tahsilat hatırlatma SaaS'ı.**
 
-Laravel 12 + Blade (Breeze) üzerine kuruludur.
+Vadexa; işletmelerin müşterilerini, vadeli/taksitli alacaklarını ve görevlerini tek panelden yönetmesini, vadesi gelen alacaklar için müşterilere otomatik **SMS** ve **e‑posta** hatırlatmaları göndererek tahsilat oranını yükseltmesini sağlar. Kayıt, ekip, abonelik planları ve ödeme akışlarıyla uçtan uca bir SaaS örneğidir.
 
-## Özellikler
+> ℹ️ **Portfolyo projesi.** SMS (NetGSM) ve ödeme (Iyzico) entegrasyonları **mock modda** çalışır — gerçek API anahtarı olmadan uçtan uca denenebilir. Gerçek anahtarlar `.env`'e girildiğinde canlıya geçer.
 
-- **Müşteri yönetimi** — telefon ve e‑posta bilgileriyle müşteri kayıtları.
-- **Alacak takibi** — vade tarihi, tutar, durum (ödendi/bekliyor); tekrar eden ve taksitli alacak desteği (`recurrence_type`, `installment_count`, `parent_id`).
-- **Görevler** — müşteri/alacaklarla ilişkili yapılacaklar.
-- **Command Center** — müşteri, alacak ve görev oluşturma, alacağı ödendi işaretleme ve tek tıkla bildirim gönderme için hızlı işlem paneli.
-- **Otomatik bildirimler** — vadesi gelen alacaklar için SMS ve e‑posta hatırlatmaları; tenant bazında açık/kapalı ayarı ve gönderim saati.
-- **Loglama** — gönderilen tüm SMS ve e‑postalar için kayıt (`sms_logs`, `mail_logs`).
-- **Dashboard** — özet metrikler ve genel durum.
-- **Çok kiracılılık** — her tenant kendi müşteri, alacak, görev ve loglarına sahiptir (`BelongsToTenant`).
+**Teknolojiler:** Laravel 12 · PHP 8.2+ · Blade + Alpine.js · Tailwind CSS · Vite · SQLite/MySQL · Pest/PHPUnit
 
-## Mimari
+---
 
-Uygulama katmanlı bir yapı kullanır:
+## Öne çıkanlar
 
-- **Controllers** — yalnızca HTTP giriş/çıkışı; iş mantığını servislere devreder.
-- **Services** (`app/Services`) — iş kuralları: `CustomerService`, `ReceivableService`, `TaskService`, `DashboardService`, `NotificationService`, `TenantService`.
-- **Repositories** (`app/Repositories/Eloquent`) — veri erişimi, `app/Contracts/Repositories` altındaki interface'ler arkasında soyutlanmıştır ve `RepositoryServiceProvider` ile bind edilir.
-- **Jobs** — bildirim gönderimi kuyruğa alınarak yapılır (`SendSmsJob`, `SendDueMailJob`).
+- 🏢 **Gerçek çok kiracılılık** — her firma yalnızca kendi verisini görür; tenant, giriş yapan kullanıcıdan çözülür (global scope + `TenantContext`).
+- 👥 **Roller & ekip** — `owner`/`member` rolleri, e‑posta ile davet, üye çıkarma/rol değiştirme (son yönetici koruması).
+- 💳 **Abonelik & ödeme** — Free/Pro/Business planları, 14 gün deneme, plan kotaları, Iyzico ödeme altyapısı (mock-ready).
+- 🔔 **Otomatik hatırlatma** — vadesi gelen alacaklar için tenant saatine göre zamanlanan SMS/e‑posta bildirimleri.
+- ✍️ **Mesaj şablonları** — tenant bazında düzenlenebilir SMS/e‑posta metinleri, `{ad}/{tutar}/{vade}` kısayolları ve **canlı önizleme**.
+- 📊 **Raporlar** — tahsilat oranı ve alacak yaşlandırma (aging) analizi.
+- 🧾 **Loglama** — gönderilen tüm SMS ve e‑postaların kaydı.
+- 🌐 **Halka açık sayfalar** — landing, Hakkımızda, İletişim (künye), Gizlilik, Mesafeli Satış, Teslimat & İade.
+- 🌗 **Cilalı arayüz** — açık/koyu tema, Türkçe, sekmeli/duyarlı tasarım.
 
-## Gereksinimler
+## Ekran görüntüleri
 
-- PHP 8.2+
-- Composer
-- Node.js & npm
-- SQLite (varsayılan) veya MySQL/PostgreSQL
+**Karşılama sayfası**
+
+![Landing](docs/screenshots/landing.png)
+
+**Genel Bakış (Komuta Merkezi)**
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+| Plan & Ödeme | Mesaj Şablonları (canlı önizleme) | Raporlar |
+|---|---|---|
+| ![Plan](docs/screenshots/plan.png) | ![Templates](docs/screenshots/templates.png) | ![Reports](docs/screenshots/reports.png) |
+
+## Demo hesapları
+
+`migrate --seed` sonrası hazır gelir (parola: `password`):
+
+| E‑posta | Rol | Açıklama |
+|---|---|---|
+| `test@example.com` | owner | Dolu demo tenant (müşteri, alacak, log verisi) |
+| `beta@example.com` | owner | İkinci tenant — veri izolasyonunu göstermek için |
 
 ## Kurulum
 
 ```bash
+git clone <repo> && cd vadexa
 composer install
 cp .env.example .env
 php artisan key:generate
-touch database/database.sqlite   # SQLite kullanıyorsan
-php artisan migrate
+touch database/database.sqlite      # SQLite (varsayılan)
+php artisan migrate --seed
 npm install
 npm run build
 ```
 
-> Kısayol: `composer setup` yukarıdaki adımların çoğunu tek komutta çalıştırır.
-
-## Geliştirme
-
-Sunucu, kuyruk, log takibi ve Vite'ı aynı anda başlatmak için:
+Ardından geliştirme ortamını başlat:
 
 ```bash
 composer dev
 ```
 
-Bu komut şunları paralel çalıştırır: `php artisan serve`, `php artisan queue:listen`, `php artisan pail` ve `npm run dev`.
+Bu komut `php artisan serve`, `queue:listen`, `pail` (log) ve `npm run dev`'i birlikte çalıştırır.
+Uygulama: <http://localhost:8000>
+
+> ⚠️ Blade'de yeni Tailwind sınıfı eklendiğinde `npm run dev` açık olmalı veya `npm run build` çalıştırılmalıdır.
+
+## Mimari
+
+Katmanlı yapı: **Controller → Service → Repository**.
+
+```
+app/
+├── Http/Controllers/      # yalnızca HTTP; iş mantığını servislere devreder
+├── Services/              # iş kuralları (Customer, Receivable, Notification,
+│   │                      #   Tenant, Quota, Billing, Invitation, Team, Report…)
+│   └── Payments/          # PaymentGateway soyutlaması + IyzicoGateway (mock/real)
+├── Contracts/             # Repository ve PaymentGateway arayüzleri
+├── Repositories/Eloquent/ # veri erişimi (interface arkasında)
+├── Models/                # Tenant, User, Customer, Receivable, Task,
+│   │                      #   Subscription, Payment, Invitation, NotificationTemplate…
+│   └── Concerns/          # BelongsToTenant (global tenant scope)
+├── Jobs/                  # SendSmsJob, SendDueMailJob (kuyruk)
+├── Mail/                  # InvitationMail
+└── Support/               # TenantContext
+```
+
+**Çok kiracılılık:** `BelongsToTenant` trait'i tüm tenant'a bağlı modellere global scope ekler; aktif tenant `ResolveTenant` middleware'i tarafından giriş yapan kullanıcıdan `TenantContext`'e yazılır. Kayıt akışı yeni bir tenant + `owner` kullanıcı oluşturur.
 
 ## Bildirimler
 
-Vadesi gelen alacaklar için hatırlatmaları göndermek üzere:
+Vadesi gelen alacaklar için hatırlatmaları tetikle (tüm aktif tenant'lar):
 
 ```bash
-php artisan app:send-due-notifications
+php artisan notifications:send-due                    # hepsini işle
+php artisan notifications:send-due --respect-schedule # yalnızca saati gelen tenant'lar
 ```
 
-Command Center üzerinden `command-center.run-notifications` endpoint'i ile de tetiklenebilir. Bildirim gönderimi kuyruk üzerinden yapıldığından bir queue worker'ın çalışıyor olması gerekir.
+Zamanlayıcı bunu saatlik çalıştırır; her tenant kendi `notification_time` saatinde işlenir. Bildirimler kuyruğa alındığı için bir **queue worker** çalışıyor olmalıdır (`composer dev` bunu içerir).
 
-### NetGSM (SMS) ayarları
-
-`.env` içindeki ilgili değişkenler:
+## Yapılandırma (mock modlar)
 
 ```env
-NETGSM_MOCK=true          # true iken gerçek SMS gönderilmez, loglanır
-NETGSM_API_URL=https://api.netgsm.com.tr/sms/send/get/
-NETGSM_USER_CODE=
-NETGSM_PASSWORD=
-NETGSM_HEADER=
-```
+# SMS (NetGSM) — mock iken gerçek SMS gönderilmez, yalnızca loglanır
+NETGSM_MOCK=true
 
-Geliştirme sırasında `NETGSM_MOCK=true` bırakılması önerilir.
+# Ödeme (Iyzico) — mock iken ödemeler simüle edilir; canlı için MOCK=false + anahtarlar
+IYZICO_MOCK=true
+IYZICO_API_KEY=
+IYZICO_SECRET_KEY=
+
+# Firma künyesi (İletişim / yasal sayfalarda gösterilir)
+COMPANY_LEGAL_NAME="Vadexa Yazılım A.Ş."
+COMPANY_MERSIS=
+COMPANY_ADDRESS=
+```
 
 ## Test
 
 ```bash
-composer test
-# veya
-php artisan test
+php artisan test        # 129 test
 ```
+
+Kapsam: tenant izolasyonu, plan limitleri, ekip/davet, faturalama, raporlar, bildirim şablonları, yasal sayfalar ve mevcut CRUD/bildirim akışları.
+
+## Yol haritası
+
+Planlanan/olası geliştirmeler için bkz. [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Lisans
 
