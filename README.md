@@ -127,9 +127,10 @@ php artisan test        # 129 test
 
 Kapsam: tenant izolasyonu, plan limitleri, ekip/davet, faturalama, raporlar, bildirim şablonları, yasal sayfalar ve mevcut CRUD/bildirim akışları.
 
-## Yol haritası
+## Dokümantasyon
 
-Planlanan/olası geliştirmeler için bkz. [`docs/ROADMAP.md`](docs/ROADMAP.md).
+- 📄 [**Şartname (SPEC)**](docs/SPEC.md) — domain, veri modeli, iş kuralları, roller, planlar, rotalar ve mimari.
+- 🗺️ [**Geliştirme Planı (PLAN)**](docs/PLAN.md) — fazlar, durum ve teknik kararlar.
 
 ## Lisans
 
