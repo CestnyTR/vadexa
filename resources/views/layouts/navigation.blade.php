@@ -15,11 +15,8 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Genel Bakış
                     </x-nav-link>
-                    <x-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*')">
-                        Gönderilen SMS'ler
-                    </x-nav-link>
-                    <x-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
-                        Gönderilen E-postalar
+                    <x-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*') || request()->routeIs('mail-logs.*')">
+                        Gönderilenler
                     </x-nav-link>
                     @if (Auth::user()->isOwner())
                         <x-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">
@@ -101,11 +98,8 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 Genel Bakış
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*')">
-                Gönderilen SMS'ler
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
-                Gönderilen E-postalar
+            <x-responsive-nav-link :href="route('sms-logs.index')" :active="request()->routeIs('sms-logs.*') || request()->routeIs('mail-logs.*')">
+                Gönderilenler
             </x-responsive-nav-link>
             @if (Auth::user()->isOwner())
                 <x-responsive-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">

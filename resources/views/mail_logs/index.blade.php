@@ -1,13 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <div>
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Gönderilen E-postalar</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Müşterilerinize gönderilen tüm e-postaların kaydı burada görünür.</p>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Gönderilen Bildirimler</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Müşterilerinize gönderilen tüm SMS ve e-postaların kaydı burada görünür.</p>
         </div>
     </x-slot>
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <x-log-tabs />
+
             <!-- Filters -->
             <div class="mb-6">
                 <form method="GET" action="{{ route('mail-logs.index') }}">
