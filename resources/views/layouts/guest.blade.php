@@ -38,6 +38,17 @@
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
+
+            <div class="w-full sm:max-w-md mt-6 flex flex-col items-center gap-3">
+                <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-gray-500 dark:text-gray-400">
+                    <a href="{{ route('legal.about') }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">Hakkımızda</a>
+                    <a href="{{ route('legal.contact') }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">İletişim</a>
+                    <a href="{{ route('legal.privacy') }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">Gizlilik</a>
+                    <a href="{{ route('legal.distance-sales') }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">Mesafeli Satış</a>
+                    <a href="{{ route('legal.delivery-returns') }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">Teslimat & İade</a>
+                </div>
+                <x-payment-badges />
+            </div>
         </div>
     </body>
 </html>

@@ -21,6 +21,20 @@
                     <x-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
                         Mail Log
                     </x-nav-link>
+                    @if (Auth::user()->isOwner())
+                        <x-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">
+                            Ekip
+                        </x-nav-link>
+                        <x-nav-link :href="route('templates.index')" :active="request()->routeIs('templates.*')">
+                            Şablonlar
+                        </x-nav-link>
+                    @endif
+                    <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                        Raporlar
+                    </x-nav-link>
+                    <x-nav-link :href="route('plan.index')" :active="request()->routeIs('plan.*')">
+                        Plan
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -92,6 +106,20 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('mail-logs.index')" :active="request()->routeIs('mail-logs.*')">
                 Mail Log
+            </x-responsive-nav-link>
+            @if (Auth::user()->isOwner())
+                <x-responsive-nav-link :href="route('team.index')" :active="request()->routeIs('team.*')">
+                    Ekip
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('templates.index')" :active="request()->routeIs('templates.*')">
+                    Şablonlar
+                </x-responsive-nav-link>
+            @endif
+            <x-responsive-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                Raporlar
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('plan.index')" :active="request()->routeIs('plan.*')">
+                Plan
             </x-responsive-nav-link>
         </div>
 

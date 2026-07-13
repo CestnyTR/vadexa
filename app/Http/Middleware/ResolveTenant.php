@@ -2,27 +2,23 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Tenant;
 use App\Support\TenantContext;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ResolveTenant
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Resolve the current tenant from the authenticated user.
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $tenant = Tenant::query()
-            ->where('is_active', true)
-            ->first();
+        $user = Auth::user();
 
-        if ($tenant) {
-            TenantContext::setTenantId($tenant->id);
+        if ($user && $user->tenant_id) {
+            TenantContext::setTenantId($user->tenant_id);
         }
 
         return $next($request);

@@ -11,6 +11,7 @@ class CustomerService
 {
     public function __construct(
         private CustomerRepositoryInterface $customers,
+        private QuotaService $quota,
     ) {}
 
     public function getPaginated(?string $search = null): LengthAwarePaginator
@@ -25,6 +26,8 @@ class CustomerService
 
     public function create(array $data): Customer
     {
+        $this->quota->assertCanCreate('customers');
+
         return $this->customers->create($data);
     }
 

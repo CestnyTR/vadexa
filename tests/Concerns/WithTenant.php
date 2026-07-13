@@ -9,6 +9,7 @@ use App\Support\TenantContext;
 trait WithTenant
 {
     protected Tenant $tenant;
+
     protected User $user;
 
     protected function setUpTenant(): void
@@ -16,6 +17,6 @@ trait WithTenant
         $this->tenant = Tenant::create(['name' => 'Test Tenant', 'is_active' => true]);
         TenantContext::setTenantId($this->tenant->id);
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->owner()->create(['tenant_id' => $this->tenant->id]);
     }
 }

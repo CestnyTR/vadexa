@@ -14,7 +14,6 @@ use App\Services\TaskService;
 use App\Services\TenantService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 
 class CommandCenterController extends Controller
 {
@@ -93,11 +92,10 @@ class CommandCenterController extends Controller
 
     public function runDueNotifications(): RedirectResponse
     {
-        Artisan::call('notifications:send-due');
-        $output = trim(Artisan::output());
+        $result = $this->notificationService->dispatchDueNotifications();
 
         return redirect()->route('dashboard')
-            ->with('success', $output ?: 'Bildirimler basariyla calistirildi.');
+            ->with('success', "Bildirimler calistirildi: {$result['sms']} SMS, {$result['mail']} mail gonderildi.");
     }
 
     public function updateSettings(Request $request): RedirectResponse

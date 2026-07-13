@@ -26,12 +26,13 @@ class SendDueMailJob implements ShouldQueue
         public string $customerName,
         public string $amount,
         public string $dueDate,
+        public ?string $message = null,
     ) {}
 
     public function handle(): void
     {
         $subject = $this->buildSubject();
-        $body = $this->buildBody();
+        $body = $this->message ?? $this->buildBody();
 
         try {
             Mail::send('emails.receivable_due', [
@@ -75,7 +76,7 @@ class SendDueMailJob implements ShouldQueue
             'upcoming' => "Odeme Hatirlatmasi - {$this->dueDate}",
             'due_today' => "Bugun Vadesi Gelen Odeme - {$this->amount} TL",
             'overdue' => "Geciken Odeme Bildirimi - {$this->amount} TL",
-            default => "Odeme Bildirimi",
+            default => 'Odeme Bildirimi',
         };
     }
 

@@ -44,4 +44,15 @@ return [
         'schedule_time' => env('NOTIFICATIONS_SCHEDULE_TIME', '10:00'),
     ],
 
+    'iyzico' => [
+        // When mock is true (default), payments are simulated end-to-end and no
+        // real API call is made. Set IYZICO_MOCK=false and fill the keys below
+        // to go live — that is the only remaining step.
+        'mock' => env('IYZICO_MOCK', true),
+        'base_url' => env('IYZICO_BASE_URL', 'https://sandbox-api.iyzipay.com'),
+        'api_key' => env('IYZICO_API_KEY'),
+        'secret_key' => env('IYZICO_SECRET_KEY'),
+        'currency' => env('IYZICO_CURRENCY', 'TRY'),
+    ],
+
 ];

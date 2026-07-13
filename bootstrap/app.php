@@ -1,8 +1,10 @@
 <?php
 
+use App\Exceptions\PlanLimitException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
@@ -15,7 +17,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->appendToGroup('web', \App\Http\Middleware\ResolveTenant::class);
+        $middleware->alias([
+            'owner' => \App\Http\Middleware\EnsureUserIsOwner::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (PlanLimitException $e, Request $request) {
+            return redirect()->back()->with('error', $e->getMessage());
+        });
     })->create();

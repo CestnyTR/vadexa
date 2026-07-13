@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-use App\Models\Tenant;
+use RuntimeException;
 
 class TenantContext
 {
@@ -16,13 +16,39 @@ class TenantContext
     public static function tenantId(): int
     {
         if (static::$tenantId === null) {
-            $tenant = Tenant::query()
-                ->where('is_active', true)
-                ->firstOrFail();
-
-            static::$tenantId = $tenant->id;
+            throw new RuntimeException('No tenant is set in the current context.');
         }
 
         return static::$tenantId;
+    }
+
+    public static function hasTenant(): bool
+    {
+        return static::$tenantId !== null;
+    }
+
+    public static function id(): ?int
+    {
+        return static::$tenantId;
+    }
+
+    public static function reset(): void
+    {
+        static::$tenantId = null;
+    }
+
+    /**
+     * Run a callback within a given tenant context, restoring the previous one afterwards.
+     */
+    public static function run(int $tenantId, callable $callback): mixed
+    {
+        $previous = static::$tenantId;
+        static::$tenantId = $tenantId;
+
+        try {
+            return $callback();
+        } finally {
+            static::$tenantId = $previous;
+        }
     }
 }
