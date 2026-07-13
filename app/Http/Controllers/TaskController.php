@@ -36,7 +36,7 @@ class TaskController extends Controller
         $this->taskService->create($request->validated());
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Gorev basariyla olusturuldu.');
+            ->with('success', 'Görev başarıyla oluşturuldu.');
     }
 
     public function edit(Task $task)
@@ -51,7 +51,7 @@ class TaskController extends Controller
         $this->taskService->update($task, $request->validated());
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Gorev basariyla guncellendi.');
+            ->with('success', 'Görev başarıyla güncellendi.');
     }
 
     public function destroy(Task $task)
@@ -59,6 +59,6 @@ class TaskController extends Controller
         $this->taskService->delete($task);
 
         return redirect()->route('tasks.index')
-            ->with('success', 'Gorev basariyla silindi.');
+            ->with('success', 'Görev başarıyla silindi.');
     }
 }

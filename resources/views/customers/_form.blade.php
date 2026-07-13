@@ -24,7 +24,7 @@
     </div>
 
     <div class="flex items-center gap-4">
-        <x-primary-button>{{ isset($customer) ? 'Guncelle' : 'Kaydet' }}</x-primary-button>
-        <a href="{{ route('customers.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</a>
+        <x-primary-button>{{ isset($customer) ? 'Güncelle' : 'Kaydet' }}</x-primary-button>
+        <a href="{{ route('customers.index') }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</a>
     </div>
 </div>

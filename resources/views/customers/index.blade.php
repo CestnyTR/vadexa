@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Musteriler</h2>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Müşteriler</h2>
             <a href="{{ route('customers.create') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 dark:bg-indigo-500 rounded-lg text-sm font-semibold text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition">
-                + Yeni Musteri
+                + Yeni Müşteri
             </a>
         </div>
     </x-slot>
@@ -33,7 +33,7 @@
                                 <th class="px-6 py-3">Telefon</th>
                                 <th class="px-6 py-3">E-posta</th>
                                 <th class="px-6 py-3">Notlar</th>
-                                <th class="px-6 py-3 text-right">Islemler</th>
+                                <th class="px-6 py-3 text-right">İşlemler</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -45,8 +45,8 @@
                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400 max-w-xs truncate">{{ $customer->notes ?? '-' }}</td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
-                                            <a href="{{ route('customers.edit', $customer) }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 text-sm font-medium">Duzenle</a>
-                                            <form method="POST" action="{{ route('customers.destroy', $customer) }}" onsubmit="return confirm('Musteri silinsin mi?')">
+                                            <a href="{{ route('customers.edit', $customer) }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 text-sm font-medium">Düzenle</a>
+                                            <form method="POST" action="{{ route('customers.destroy', $customer) }}" onsubmit="return confirm('Müşteri silinsin mi?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 text-sm font-medium">Sil</button>
@@ -56,7 +56,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Musteri bulunamadi.</td>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Müşteri bulunamadı.</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -30,7 +30,7 @@ class CommandCenterController extends Controller
         $this->customerService->create($request->validated());
 
         return redirect()->route('dashboard', $this->preserveQuery($request))
-            ->with('success', 'Musteri basariyla olusturuldu.');
+            ->with('success', 'Müşteri başarıyla oluşturuldu.');
     }
 
     public function storeReceivable(StoreReceivableRequest $request): RedirectResponse
@@ -38,8 +38,8 @@ class CommandCenterController extends Controller
         $result = $this->receivableService->createWithInstallments($request->validated());
 
         $message = $result['receivables_created'] > 1
-            ? "{$result['receivables_created']} taksitli alacak basariyla olusturuldu."
-            : 'Alacak basariyla olusturuldu.';
+            ? "{$result['receivables_created']} taksitli alacak başarıyla oluşturuldu."
+            : 'Alacak başarıyla oluşturuldu.';
 
         return redirect()->route('dashboard', $this->preserveQuery($request))
             ->with('success', $message);
@@ -50,7 +50,7 @@ class CommandCenterController extends Controller
         $this->taskService->create($request->validated());
 
         return redirect()->route('dashboard', $this->preserveQuery($request))
-            ->with('success', 'Gorev basariyla olusturuldu.');
+            ->with('success', 'Görev başarıyla oluşturuldu.');
     }
 
     public function updateReceivable(UpdateReceivableRequest $request, Receivable $receivable): RedirectResponse
@@ -58,7 +58,7 @@ class CommandCenterController extends Controller
         $this->receivableService->update($receivable, $request->validated());
 
         return redirect()->route('dashboard', $this->preserveQuery($request))
-            ->with('success', 'Alacak basariyla guncellendi.');
+            ->with('success', 'Alacak başarıyla güncellendi.');
     }
 
     public function markReceivablePaid(Receivable $receivable): RedirectResponse
@@ -66,7 +66,7 @@ class CommandCenterController extends Controller
         $this->receivableService->markPaid($receivable);
 
         return redirect()->route('dashboard')
-            ->with('success', 'Alacak odendi olarak isaretlendi.');
+            ->with('success', 'Alacak ödendi olarak işaretlendi.');
     }
 
     public function sendReceivableNotification(Receivable $receivable): RedirectResponse
@@ -83,11 +83,11 @@ class CommandCenterController extends Controller
             }
 
             return redirect()->route('dashboard')
-                ->with('success', implode(' + ', $parts).' bildirimi gonderildi.');
+                ->with('success', implode(' + ', $parts).' bildirimi gönderildi.');
         }
 
         return redirect()->route('dashboard')
-            ->with('error', 'Bildirim gonderilemedi. Daha once gonderilmis olabilir veya musteri bilgileri eksik.');
+            ->with('error', 'Bildirim gönderilemedi. Daha önce gönderilmiş olabilir veya müşteri bilgileri eksik.');
     }
 
     public function runDueNotifications(): RedirectResponse
@@ -95,7 +95,7 @@ class CommandCenterController extends Controller
         $result = $this->notificationService->dispatchDueNotifications();
 
         return redirect()->route('dashboard')
-            ->with('success', "Bildirimler calistirildi: {$result['sms']} SMS, {$result['mail']} mail gonderildi.");
+            ->with('success', "Bildirimler çalıştırıldı: {$result['sms']} SMS, {$result['mail']} mail gönderildi.");
     }
 
     public function updateSettings(Request $request): RedirectResponse
@@ -113,7 +113,7 @@ class CommandCenterController extends Controller
         ]);
 
         return redirect()->route('dashboard')
-            ->with('success', 'Bildirim ayarlari guncellendi.');
+            ->with('success', 'Bildirim ayarları güncellendi.');
     }
 
     protected function preserveQuery($request): array

@@ -1,8 +1,8 @@
 <div class="space-y-6" x-data="{ recurrence: '{{ old('recurrence_type', $receivable->recurrence_type ?? 'once') }}' }">
     <div>
-        <x-input-label for="rc_customer_id" value="Musteri" />
+        <x-input-label for="rc_customer_id" value="Müşteri" />
         <select id="rc_customer_id" name="customer_id" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm" required>
-            <option value="">Musteri secin...</option>
+            <option value="">Müşteri seçin...</option>
             @foreach($customers as $customer)
                 <option value="{{ $customer->id }}" {{ old('customer_id', $receivable->customer_id ?? '') == $customer->id ? 'selected' : '' }}>{{ $customer->name }}</option>
             @endforeach
@@ -26,7 +26,7 @@
     <div>
         <x-input-label for="rc_status" value="Durum" />
         <select id="rc_status" name="status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm" required>
-            @foreach(['upcoming' => 'Yaklasan', 'due_today' => 'Bugun', 'overdue' => 'Gecmis', 'paid' => 'Odendi'] as $key => $label)
+            @foreach(['upcoming' => 'Yaklaşan', 'due_today' => 'Bugün', 'overdue' => 'Geçmiş', 'paid' => 'Ödendi'] as $key => $label)
                 <option value="{{ $key }}" {{ old('status', $receivable->status ?? 'upcoming') === $key ? 'selected' : '' }}>{{ $label }}</option>
             @endforeach
         </select>
@@ -34,7 +34,7 @@
     </div>
 
     <div>
-        <x-input-label for="rc_description" value="Aciklama" />
+        <x-input-label for="rc_description" value="Açıklama" />
         <textarea id="rc_description" name="description" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400 rounded-lg shadow-sm">{{ old('description', $receivable->description ?? '') }}</textarea>
         <x-input-error :messages="$errors->get('description')" class="mt-2" />
     </div>

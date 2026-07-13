@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="header">
-        <h2 style="margin:0;">Odeme Bildirimi</h2>
+        <h2 style="margin:0;">Ödeme Bildirimi</h2>
     </div>
     <div class="content">
         <p>Sayin <strong>{{ $customerName }}</strong>,</p>

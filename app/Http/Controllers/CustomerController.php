@@ -30,7 +30,7 @@ class CustomerController extends Controller
         $this->customerService->create($request->validated());
 
         return redirect()->route('customers.index')
-            ->with('success', 'Musteri basariyla olusturuldu.');
+            ->with('success', 'Müşteri başarıyla oluşturuldu.');
     }
 
     public function edit(Customer $customer)
@@ -43,7 +43,7 @@ class CustomerController extends Controller
         $this->customerService->update($customer, $request->validated());
 
         return redirect()->route('customers.index')
-            ->with('success', 'Musteri basariyla guncellendi.');
+            ->with('success', 'Müşteri başarıyla güncellendi.');
     }
 
     public function destroy(Customer $customer)
@@ -51,6 +51,6 @@ class CustomerController extends Controller
         $this->customerService->delete($customer);
 
         return redirect()->route('customers.index')
-            ->with('success', 'Musteri basariyla silindi.');
+            ->with('success', 'Müşteri başarıyla silindi.');
     }
 }

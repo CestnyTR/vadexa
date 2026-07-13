@@ -1,12 +1,12 @@
 <div class="space-y-6">
     <div>
-        <x-input-label for="tc_title" value="Baslik" />
+        <x-input-label for="tc_title" value="Başlık" />
         <x-text-input id="tc_title" name="title" type="text" class="mt-1 block w-full" :value="old('title', $task->title ?? '')" required />
         <x-input-error :messages="$errors->get('title')" class="mt-2" />
     </div>
 
     <div>
-        <x-input-label for="tc_description" value="Aciklama" />
+        <x-input-label for="tc_description" value="Açıklama" />
         <textarea id="tc_description" name="description" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-indigo-500 dark:focus:ring-indigo-400 rounded-lg shadow-sm">{{ old('description', $task->description ?? '') }}</textarea>
         <x-input-error :messages="$errors->get('description')" class="mt-2" />
     </div>
@@ -14,7 +14,7 @@
     <div>
         <x-input-label for="tc_status" value="Durum" />
         <select id="tc_status" name="status" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm" required>
-            @foreach(['todo' => 'Yapilacak', 'doing' => 'Yapiliyor', 'done' => 'Tamamlandi'] as $key => $label)
+            @foreach(['todo' => 'Yapılacak', 'doing' => 'Yapılıyor', 'done' => 'Tamamlandı'] as $key => $label)
                 <option value="{{ $key }}" {{ old('status', $task->status ?? 'todo') === $key ? 'selected' : '' }}>{{ $label }}</option>
             @endforeach
         </select>
@@ -28,9 +28,9 @@
     </div>
 
     <div>
-        <x-input-label for="tc_customer_id" value="Musteri (opsiyonel)" />
+        <x-input-label for="tc_customer_id" value="Müşteri (opsiyonel)" />
         <select id="tc_customer_id" name="customer_id" class="mt-1 block w-full border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm">
-            <option value="">Musteri yok</option>
+            <option value="">Müşteri yok</option>
             @foreach($customers as $customer)
                 <option value="{{ $customer->id }}" {{ old('customer_id', $task->customer_id ?? '') == $customer->id ? 'selected' : '' }}>{{ $customer->name }}</option>
             @endforeach

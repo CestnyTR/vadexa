@@ -55,7 +55,7 @@ $btnClasses = match($confirmColor) {
         </div>
         <div class="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 flex justify-end gap-3">
             <button @click="show = false" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-500 transition">
-                Iptal
+                İptal
             </button>
             <form :action="action" method="POST">
                 @csrf

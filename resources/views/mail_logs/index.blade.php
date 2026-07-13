@@ -11,14 +11,14 @@
                     <div class="flex flex-wrap gap-3">
                         <x-text-input name="q" value="{{ request('q') }}" placeholder="E-posta ile ara..." class="flex-1 min-w-[200px]" />
                         <select name="status" class="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm text-sm">
-                            <option value="">Tum Durumlar</option>
+                            <option value="">Tüm Durumlar</option>
                             @foreach(['success' => 'Basarili', 'failed' => 'Basarisiz'] as $key => $label)
                                 <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
                         <select name="type" class="border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-lg shadow-sm text-sm">
-                            <option value="">Tum Tipler</option>
-                            @foreach(['upcoming' => 'Yaklasan', 'due_today' => 'Bugun', 'overdue' => 'Gecmis'] as $key => $label)
+                            <option value="">Tüm Tipler</option>
+                            @foreach(['upcoming' => 'Yaklaşan', 'due_today' => 'Bugün', 'overdue' => 'Geçmiş'] as $key => $label)
                                 <option value="{{ $key }}" {{ request('type') === $key ? 'selected' : '' }}>{{ $label }}</option>
                             @endforeach
                         </select>
@@ -40,7 +40,7 @@
                             <tr>
                                 <th class="px-6 py-3">Tarih</th>
                                 <th class="px-6 py-3">E-posta</th>
-                                <th class="px-6 py-3">Musteri</th>
+                                <th class="px-6 py-3">Müşteri</th>
                                 <th class="px-6 py-3">Tip</th>
                                 <th class="px-6 py-3">Durum</th>
                                 <th class="px-6 py-3">Konu</th>
@@ -81,7 +81,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Mail log bulunamadi.</td>
+                                    <td colspan="7" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">Mail log bulunamadı.</td>
                                 </tr>
                             @endforelse
                         </tbody>

@@ -10,7 +10,7 @@
                         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Musteri adi / telefon / email..."
+                        <input type="text" name="q" value="{{ request('q') }}" placeholder="Müşteri adı / telefon / email..."
                             class="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                     </div>
                 </form>
@@ -18,7 +18,7 @@
                 <div class="flex items-center gap-2 flex-wrap">
                     <button @click="$dispatch('open-slideover', 'customer-create')" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                        Yeni Musteri
+                        Yeni Müşteri
                     </button>
                     <button @click="$dispatch('open-slideover', 'receivable-create')" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -26,13 +26,13 @@
                     </button>
                     <button @click="$dispatch('open-slideover', 'task-create')" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-                        Yeni Gorev
+                        Yeni Görev
                     </button>
                     <form method="POST" action="{{ route('command-center.run-notifications') }}" class="inline">
                         @csrf
                         <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                            Bildirimleri Calistir
+                            Bildirimleri Çalıştır
                         </button>
                     </form>
                     <button @click="$dispatch('open-slideover', 'settings')" class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition" title="Ayarlar">
@@ -46,7 +46,7 @@
                 <a href="{{ route('dashboard', ['tab' => 'due_today']) }}" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition group">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Bugun</p>
+                            <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Bugün</p>
                             <p class="text-lg font-bold text-gray-900 dark:text-white mt-0.5">{{ number_format($dueToday->total, 2) }} <span class="text-xs font-normal">TL</span></p>
                         </div>
                         <span class="p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
@@ -72,7 +72,7 @@
                 <a href="{{ route('dashboard', ['tab' => 'upcoming']) }}" class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition group">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Yaklasan (7g)</p>
+                            <p class="text-xs font-medium text-gray-500 dark:text-gray-400">Yaklaşan (7g)</p>
                             <p class="text-lg font-bold text-gray-900 dark:text-white mt-0.5">{{ number_format($upcoming->total, 2) }} <span class="text-xs font-normal">TL</span></p>
                         </div>
                         <span class="p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -110,7 +110,7 @@
                         {{-- Tabs --}}
                         <div class="border-b border-gray-200 dark:border-gray-700 px-4 pt-3">
                             <div class="flex items-center gap-1 -mb-px">
-                                @foreach(['overdue' => 'Geciken', 'due_today' => 'Bugun', 'upcoming' => 'Yaklasan', 'paid' => 'Odenmis'] as $tabKey => $tabLabel)
+                                @foreach(['overdue' => 'Geciken', 'due_today' => 'Bugün', 'upcoming' => 'Yaklaşan', 'paid' => 'Ödenmiş'] as $tabKey => $tabLabel)
                                     <a href="{{ route('dashboard', array_merge(request()->only(['q', 'customer_id', 'date_from', 'date_to']), ['tab' => $tabKey])) }}"
                                        class="px-3 py-2 text-sm font-medium border-b-2 transition {{ $tab === $tabKey ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300' }}">
                                         {{ $tabLabel }}
@@ -130,13 +130,13 @@
                             <table class="w-full text-sm text-left">
                                 <thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700/50">
                                     <tr>
-                                        <th class="px-4 py-2.5">Musteri</th>
+                                        <th class="px-4 py-2.5">Müşteri</th>
                                         <th class="px-4 py-2.5">Tutar</th>
                                         <th class="px-4 py-2.5">Vade</th>
                                         @if($tab === 'overdue')
                                             <th class="px-4 py-2.5">Geciken</th>
                                         @endif
-                                        <th class="px-4 py-2.5 text-right">Islemler</th>
+                                        <th class="px-4 py-2.5 text-right">İşlemler</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -158,7 +158,7 @@
                                             @if($tab === 'overdue')
                                                 <td class="px-4 py-3">
                                                     <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300">
-                                                        {{ (int) now()->diffInDays($receivable->due_date, false) * -1 }} gun
+                                                        {{ (int) now()->diffInDays($receivable->due_date, false) * -1 }} gün
                                                     </span>
                                                 </td>
                                             @endif
@@ -166,16 +166,16 @@
                                                 <div class="flex items-center justify-end gap-1">
                                                     @if($receivable->status !== 'paid')
                                                         <button @click="$dispatch('open-confirm', { name: 'mark-paid', action: '{{ route('command-center.mark-paid', $receivable) }}' })"
-                                                                class="p-1.5 rounded text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition" title="Odendi yap">
+                                                                class="p-1.5 rounded text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition" title="Ödendi yap">
                                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                                                         </button>
                                                         <button @click="$dispatch('open-confirm', { name: 'send-notify', action: '{{ route('command-center.notify-receivable', $receivable) }}' })"
-                                                                class="p-1.5 rounded text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition" title="SMS+Mail gonder">
+                                                                class="p-1.5 rounded text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition" title="SMS+Mail gönder">
                                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                                         </button>
                                                     @endif
                                                     <a href="{{ route('dashboard', ['modal' => 'receivable-edit', 'id' => $receivable->id, 'tab' => $tab]) }}"
-                                                       class="p-1.5 rounded text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition" title="Duzenle">
+                                                       class="p-1.5 rounded text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition" title="Düzenle">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                     </a>
                                                 </div>
@@ -207,7 +207,7 @@
                     <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                         <div class="border-b border-gray-200 dark:border-gray-700 px-4 pt-3">
                             <div class="flex items-center gap-1 -mb-px">
-                                @foreach(['todo' => 'Yapilacak', 'doing' => 'Yapiliyor', 'done' => 'Bitti'] as $tKey => $tLabel)
+                                @foreach(['todo' => 'Yapılacak', 'doing' => 'Yapılıyor', 'done' => 'Bitti'] as $tKey => $tLabel)
                                     <a href="{{ route('dashboard', array_merge(request()->only(['tab', 'q', 'customer_id', 'date_from', 'date_to']), ['task_tab' => $tKey])) }}"
                                        class="px-2.5 py-2 text-xs font-medium border-b-2 transition {{ $taskTab === $tKey ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300' }}">
                                         {{ $tLabel }}
@@ -231,7 +231,7 @@
                                     </div>
                                 </li>
                             @empty
-                                <li class="px-4 py-6 text-center text-sm text-gray-400">Gorev yok.</li>
+                                <li class="px-4 py-6 text-center text-sm text-gray-400">Görev yok.</li>
                             @endforelse
                         </ul>
                     </div>
@@ -282,14 +282,14 @@
     </div>
 
     {{-- SLIDEOVER: New Customer --}}
-    <x-slideover name="customer-create" title="Yeni Musteri" maxWidth="md">
+    <x-slideover name="customer-create" title="Yeni Müşteri" maxWidth="md">
         <form method="POST" action="{{ route('command-center.store-customer') }}">
             @csrf
             <input type="hidden" name="tab" value="{{ $tab }}">
             @include('customers._form_fields')
             <div class="flex items-center gap-4 mt-6">
                 <x-primary-button>Kaydet</x-primary-button>
-                <button type="button" @click="$dispatch('close-slideover', 'customer-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</button>
+                <button type="button" @click="$dispatch('close-slideover', 'customer-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</button>
             </div>
         </form>
     </x-slideover>
@@ -302,35 +302,35 @@
             @include('receivables._form_fields', ['receivable' => null, 'customers' => $customers])
             <div class="flex items-center gap-4 mt-6">
                 <x-primary-button>Kaydet</x-primary-button>
-                <button type="button" @click="$dispatch('close-slideover', 'receivable-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</button>
+                <button type="button" @click="$dispatch('close-slideover', 'receivable-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</button>
             </div>
         </form>
     </x-slideover>
 
     {{-- SLIDEOVER: New Task --}}
-    <x-slideover name="task-create" title="Yeni Gorev" maxWidth="md">
+    <x-slideover name="task-create" title="Yeni Görev" maxWidth="md">
         <form method="POST" action="{{ route('command-center.store-task') }}">
             @csrf
             <input type="hidden" name="tab" value="{{ $tab }}">
             @include('tasks._form_fields', ['task' => null, 'customers' => $customers])
             <div class="flex items-center gap-4 mt-6">
                 <x-primary-button>Kaydet</x-primary-button>
-                <button type="button" @click="$dispatch('close-slideover', 'task-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</button>
+                <button type="button" @click="$dispatch('close-slideover', 'task-create')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</button>
             </div>
         </form>
     </x-slideover>
 
     {{-- SLIDEOVER: Edit Receivable --}}
     @if($editReceivable)
-        <x-slideover name="receivable-edit" title="Alacak Duzenle" maxWidth="md">
+        <x-slideover name="receivable-edit" title="Alacak Düzenle" maxWidth="md">
             <form method="POST" action="{{ route('command-center.update-receivable', $editReceivable) }}">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="tab" value="{{ $tab }}">
                 @include('receivables._form_fields', ['receivable' => $editReceivable, 'customers' => $customers])
                 <div class="flex items-center gap-4 mt-6">
-                    <x-primary-button>Guncelle</x-primary-button>
-                    <a href="{{ route('dashboard', ['tab' => $tab]) }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</a>
+                    <x-primary-button>Güncelle</x-primary-button>
+                    <a href="{{ route('dashboard', ['tab' => $tab]) }}" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</a>
                 </div>
             </form>
         </x-slideover>
@@ -338,16 +338,16 @@
 
     {{-- CONFIRM: Mark Paid --}}
     <x-confirm-modal name="mark-paid"
-        title="Odendi Olarak Isaretle"
+        title="Ödendi Olarak İşaretle"
         message="Bu alacagi odendi olarak isaretlemek istediginize emin misiniz?"
-        confirmText="Odendi Yap"
+        confirmText="Ödendi Yap"
         confirmColor="emerald" />
 
     {{-- CONFIRM: Send Notification --}}
     <x-confirm-modal name="send-notify"
-        title="Bildirim Gonder"
-        message="Bu alacak icin SMS ve Mail bildirimi gondermek istediginize emin misiniz?"
-        confirmText="Gonder"
+        title="Bildirim Gönder"
+        message="Bu alacak icin SMS ve Mail bildirimi göndermek istediginize emin misiniz?"
+        confirmText="Gönder"
         confirmColor="indigo" />
 
     {{-- SLIDEOVER: Settings --}}
@@ -359,14 +359,14 @@
                 <div>
                     <x-input-label for="notification_time" value="Gunluk Bildirim Saati" />
                     <x-text-input id="notification_time" name="notification_time" type="time" class="mt-1 block w-full" :value="old('notification_time', $tenant->notification_time ?? '10:00')" required />
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Her gun bu saatte otomatik SMS ve Mail gonderilir.</p>
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Her gün bu saatte otomatik SMS ve Mail gönderilir.</p>
                     <x-input-error :messages="$errors->get('notification_time')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-between">
                     <div>
                         <x-input-label value="SMS Bildirimi" />
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Vade hatirlatmasi SMS gonder</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Vade hatirlatmasi SMS gönder</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="hidden" name="sms_enabled" value="0">
@@ -378,7 +378,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <x-input-label value="Mail Bildirimi" />
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Vade hatirlatmasi e-posta gonder</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Vade hatirlatmasi e-posta gönder</p>
                     </div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="hidden" name="mail_enabled" value="0">
@@ -390,7 +390,7 @@
 
             <div class="flex items-center gap-4 mt-6">
                 <x-primary-button>Kaydet</x-primary-button>
-                <button type="button" @click="$dispatch('close-slideover', 'settings')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">Iptal</button>
+                <button type="button" @click="$dispatch('close-slideover', 'settings')" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">İptal</button>
             </div>
         </form>
     </x-slideover>

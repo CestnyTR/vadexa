@@ -19,7 +19,9 @@ use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return auth()->check()
+        ? redirect()->route('dashboard')
+        : view('landing');
 });
 
 // Public legal / corporate pages (required for iyzico merchant onboarding)

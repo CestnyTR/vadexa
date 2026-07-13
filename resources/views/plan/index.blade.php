@@ -121,20 +121,12 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach ($payments as $payment)
-                                @php
-                                    $statusMap = [
-                                        'paid' => ['Ödendi', 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'],
-                                        'pending' => ['Bekliyor', 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'],
-                                        'failed' => ['Başarısız', 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300'],
-                                    ];
-                                    [$statusLabel, $statusClass] = $statusMap[$payment->status] ?? [$payment->status, 'bg-gray-100 text-gray-600'];
-                                @endphp
                                 <tr>
                                     <td class="px-6 py-3 text-gray-600 dark:text-gray-400">{{ $payment->created_at->format('d.m.Y H:i') }}</td>
                                     <td class="px-6 py-3 text-gray-800 dark:text-gray-200">{{ $plans[$payment->plan]['name'] ?? $payment->plan }}</td>
                                     <td class="px-6 py-3 text-gray-800 dark:text-gray-200">{{ number_format($payment->amount, 2, ',', '.') }} {{ $payment->currency }}</td>
                                     <td class="px-6 py-3">
-                                        <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium {{ $statusClass }}">{{ $statusLabel }}</span>
+                                        <x-status-badge :status="$payment->status" />
                                     </td>
                                 </tr>
                             @endforeach

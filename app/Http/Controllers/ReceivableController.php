@@ -37,7 +37,7 @@ class ReceivableController extends Controller
         $this->receivableService->create($request->validated());
 
         return redirect()->route('receivables.index')
-            ->with('success', 'Alacak basariyla olusturuldu.');
+            ->with('success', 'Alacak başarıyla oluşturuldu.');
     }
 
     public function edit(Receivable $receivable)
@@ -52,7 +52,7 @@ class ReceivableController extends Controller
         $this->receivableService->update($receivable, $request->validated());
 
         return redirect()->route('receivables.index')
-            ->with('success', 'Alacak basariyla guncellendi.');
+            ->with('success', 'Alacak başarıyla güncellendi.');
     }
 
     public function destroy(Receivable $receivable)
@@ -60,6 +60,6 @@ class ReceivableController extends Controller
         $this->receivableService->delete($receivable);
 
         return redirect()->route('receivables.index')
-            ->with('success', 'Alacak basariyla silindi.');
+            ->with('success', 'Alacak başarıyla silindi.');
     }
 }
