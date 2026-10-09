@@ -48,7 +48,7 @@ Vadexa; işletmelerin müşterilerini, vadeli/taksitli alacaklarını ve görevl
 ## Kurulum
 
 ```bash
-git clone <repo> && cd vadexa
+git clone https://github.com/CestnyTR/vadexa.git && cd vadexa
 composer install
 cp .env.example .env
 php artisan key:generate
